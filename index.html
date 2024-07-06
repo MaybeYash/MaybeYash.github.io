@@ -1,47 +1,186 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Custom Styled Border</title>
-    <style>
-        body {
-            background-color: #141414; /* Matching the dark background */
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MaybeSoumo</title>
+  <!-- Combined CSS -->
+  <style>
+    /* General styles for body and container */
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: #161616;
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
 
-        .custom-border {
-            display: flex;
-            align-items: center;
-            padding: 20px;
-            background-color: #1f1f1f; /* Darker shade for the background */
-            border-radius: 30px; /* Rounded corners */
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); /* Soft shadow for a glowing effect */
-            border: 2px solid #444; /* Slightly visible border */
-        }
+    .border-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #1a1a1a;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+    }
 
-        .custom-border img {
-            width: 50px;
-            height: 50px;
-            margin-right: 20px;
-        }
+    .border-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
 
-        .custom-border h1 {
-            color: #fff; /* White text */
-            font-size: 24px;
-            margin: 0;
-        }
-    </style>
+    .logo-container {
+      margin-bottom: 10px;
+    }
+
+    .logo {
+      width: 50px;
+      height: 50px;
+    }
+
+    h1 {
+      color: white;
+      font-size: 24px;
+    }
+
+    /* Menu styles */
+    * {
+      padding: 0;
+      margin: 0;
+    }
+
+    .menu {
+      position: relative;
+      width: 260px;
+      height: 260px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .menu li {
+      position: absolute;
+      left: 0;
+      list-style: none;
+      transform: rotate(0deg) translateX(100px);
+      transform-origin: 130px;
+      transition: 0.5s;
+      transition-delay: calc(0.1s * var(--i));
+    }
+
+    .menu.active li {
+      transform: rotate(calc(360deg / 8 * var(--i)));
+    }
+
+    .menu a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 60px;
+      height: 60px;
+      text-decoration: none;
+      font-size: 22px;
+      border-radius: 50%;
+      transform: rotate(calc(360deg / -8 * var(--i)));
+      transition: 1s;
+      color: transparent;
+      transition-delay: 0.5s;
+      filter: drop-shadow(0 0 2px var(--clr));
+    }
+
+    .menu.active a {
+      color: var(--clr);
+    }
+
+    .menu a::before {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 2px;
+      border-radius: 2px;
+      background: var(--clr);
+      transform: rotate(calc(90deg * var(--i))) translate(0, 25px);
+      transition: width 0.5s, height 0.5s, transform 0.5s;
+      transition-delay: 0.5s, 1s, 1.5s;
+    }
+
+    .menu.active a::before {
+      width: 50px;
+      height: 50px;
+      background: #161616;
+      border: 2px solid var(--clr);
+      transform: rotate(calc(0 * var(--i)));
+      transition: transform 0.5s, height 0.5s, width 0.5s;
+      transition-delay: 0.5s, 1.5s, 1.5s;
+      border-radius: 10px;
+      filter: drop-shadow(0 0 5px var(--clr));
+      rotate: 135deg;
+    }
+
+    .menu.active li:hover a::before {
+      background: var(--clr);
+    }
+
+    .menu.active li:hover a ion-icon {
+      color: #161616;
+    }
+  </style>
+  <!-- JQuery and Ionicons for menu icons -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </head>
 <body>
-    <div class="custom-border">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Blue_butterfly_icon.png/1024px-Blue_butterfly_icon.png" alt="Butterfly Logo">
-        <h1>MaybeSoumo</h1>
+  <!-- Main Border and Text Section -->
+  <div class="border-container">
+    <div class="border-content">
+      <div class="logo-container">
+        <img src="butterfly-logo.png" alt="Butterfly Logo" class="logo">
+      </div>
+      <h1>MaybeSoumo</h1>
     </div>
+  </div>
+  
+  <!-- Icon Menu Section -->
+  <ul class="menu">
+    <li style="--i: 0; --clr: #ff2972">
+      <a href="#"><ion-icon name="home-outline"></ion-icon></a>
+    </li>
+    <li style="--i: 1; --clr: #fee800">
+      <a href="#"><ion-icon name="settings-outline"></ion-icon></a>
+    </li>
+    <li style="--i: 2; --clr: #04fc43">
+      <a href="#"><ion-icon name="mail-outline"></ion-icon></a>
+    </li>
+    <li style="--i: 3; --clr: #fe00f1">
+      <a href="#"><ion-icon name="key-outline"></ion-icon></a>
+    </li>
+    <li style="--i: 4; --clr: #00b0fe">
+      <a href="#"><ion-icon name="camera-outline"></ion-icon></a>
+    </li>
+    <li style="--i: 5; --clr: #fea600">
+      <a href="#"><ion-icon name="game-controller-outline"></ion-icon></a>
+    </li>
+    <li style="--i: 6; --clr: #a529ff">
+      <a href="#"><ion-icon name="person-outline"></ion-icon></a>
+    </li>
+    <li style="--i: 7; --clr: #01bdab">
+      <a href="#"><ion-icon name="videocam-outline"></ion-icon></a>
+    </li>
+  </ul>
+
+  <!-- JavaScript to Activate Menu -->
+  <script>
+    $(document).ready(function() {
+      let menu = document.querySelector(".menu");
+      menu.classList.add("active");
+    });
+  </script>
 </body>
 </html>
